@@ -13,7 +13,6 @@
 # Project files
 !Files
 
-
 # Scripts
 !Files/scriptbank
 !Files/scriptbank/Script_Pack_10_Nazi_Zombies_v2
@@ -23,3 +22,13 @@
 !Files/mapbank
 !Files/mapbank/Script_Pack_10_Nazi_Zombies_v2
 !Files/mapbank/Script_Pack_10_Nazi_Zombies_v2/*
+
+# Entities
+!Files/entitybank
+!Files/entitybank/Script_Pack_10_Nazi_Zombies_v2
+!Files/entitybank/Script_Pack_10_Nazi_Zombies_v2/*
+
+# Audio
+!Files/audiobank
+!Files/audiobank/Script_Pack_10_Nazi_Zombies_v2
+!Files/audiobank/Script_Pack_10_Nazi_Zombies_v2/*
