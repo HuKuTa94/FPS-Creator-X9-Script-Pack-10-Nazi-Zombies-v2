@@ -1,0 +1,25 @@
+# Ignore everything
+*
+!.gitignore
+
+
+# Except for the below directories
+# Documentation
+!Docs/
+!Docs/Script_Pack_10_Nazi_Zombies_v2
+!Docs/Script_Pack_10_Nazi_Zombies_v2/*
+
+
+# Project files
+!Files
+
+
+# Scripts
+!Files/scriptbank
+!Files/scriptbank/Script_Pack_10_Nazi_Zombies_v2
+!Files/scriptbank/Script_Pack_10_Nazi_Zombies_v2/*
+
+# Maps
+!Files/mapbank
+!Files/mapbank/Script_Pack_10_Nazi_Zombies_v2
+!Files/mapbank/Script_Pack_10_Nazi_Zombies_v2/*
