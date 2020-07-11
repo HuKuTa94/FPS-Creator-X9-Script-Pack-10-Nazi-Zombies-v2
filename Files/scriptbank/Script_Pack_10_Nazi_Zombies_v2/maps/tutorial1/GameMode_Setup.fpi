@@ -20,8 +20,8 @@
 
 ;======= EDITABLE VARS =========
 :state=0:setvar=money 500
-:state=0:setvar=waveMax 99
-:state=0:setvar=zombiesCountIncrement 4
+:state=0:setvar=waveMax 10
+:state=0:setvar=zombiesCountIncrement 3
 :state=0:setvar=zombiesInGameMax 2
 :state=0:setvar=bossWaveInterval 5
 :state=0:setvar=bossesCountIncrement 2

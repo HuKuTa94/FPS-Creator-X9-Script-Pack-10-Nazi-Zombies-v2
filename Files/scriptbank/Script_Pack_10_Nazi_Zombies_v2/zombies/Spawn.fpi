@@ -19,9 +19,9 @@
 :state=0:dimlocalvar=damage,dimlocalvar=bossStartHealth,dimlocalvar=zombieStartHealth,dimlocalvar=animMove,dimlocalvar=healthIncrement,dimlocalvar=healthNew
 
 ;======= EDITABLE VARS =========
-:state=0:setvar=healthIncrement 8
-:state=0:setvar=zombieStartHealth 50
-:state=0:setvar=bossStartHealth 80
+:state=0:setvar=healthIncrement 15
+:state=0:setvar=zombieStartHealth 60
+:state=0:setvar=bossStartHealth 100
 :state=0:setvar=damage 45
 ;===========================
 
@@ -59,9 +59,8 @@
 ;===========================================================================================================================
 
 ;// calculate new health
-:state=10,varequal=isBoss 0:setvar=$EH %zombieStartHealth,state=11
-:state=10,varequal=isBoss 1:setvar=$EH %bossStartHealth,state=11
-:state=11:setvar=healthNew %healthIncrement,mulvar=healthNew %wave,addvar=$EH %healthNew,state=12
+:state=10,varequal=isBoss 0:setvar=$EH %zombieStartHealth,setvar=healthNew %healthIncrement,mulvar=healthNew %wave,addvar=$EH %healthNew,state=12
+:state=10,varequal=isBoss 1:setvar=healthNew $EH,addvar=healthNew %bossStartHealth,setvar=$EH %healthNew,state=12
 
 ;// set animation of movement
 :state=12,vargreater=wave %runningZombiesAfterWave:setvar=animMove %animRun,state=13
