@@ -36,7 +36,7 @@
 
 ;// zombie breaks plank
 :activated=1:activate=2,subvar=plank 1,state=20
-:activated=10:activate=3,setvar=plank 1,state=20
+:activated=10:activate=3,setvar=plank 1,state=2,soundscale=100
 
 ;// sound volume
 :state=20:setvar=volume 100,divvar=volume $DIS,mulvar=volume 100
