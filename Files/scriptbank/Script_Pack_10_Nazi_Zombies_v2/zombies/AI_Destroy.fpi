@@ -32,4 +32,4 @@
 ;======================================================
 
 ;// delete the body from game
-:state=5:destroy
+:state=5:activate=0,destroy

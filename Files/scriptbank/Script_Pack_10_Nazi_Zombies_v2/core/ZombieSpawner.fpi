@@ -11,7 +11,7 @@
 ;=================================
 
 ;// enable spawning
-:state=1,plrwithinzone=1:activateifused=1,state=2
+:plrwithinzone=1:activateifused=1
 
 ;// disable spawning
-:state=2,plrwithinzone=0:activateifused=0,state=1
+:plrwithinzone=0:activateifused=0

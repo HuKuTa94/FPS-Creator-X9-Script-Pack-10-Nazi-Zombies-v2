@@ -11,7 +11,4 @@
 ;=================================
 
 ;// activate zombie spawning
-:state=1,varequal=wave 1:activateifused=1,state=2
-
-;// delete trigger
-:state=2:destroy
+:state=1:activateifused=1
