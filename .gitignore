@@ -17,6 +17,8 @@
 !Files/scriptbank
 !Files/scriptbank/Script_Pack_10_Nazi_Zombies_v2
 !Files/scriptbank/Script_Pack_10_Nazi_Zombies_v2/*
+!Files/scriptbank/Script_Pack_10_Nazi_Zombies_v2/*/*
+!Files/scriptbank/Script_Pack_10_Nazi_Zombies_v2/*/*/*
 
 # Maps
 !Files/mapbank
@@ -27,8 +29,22 @@
 !Files/entitybank
 !Files/entitybank/Script_Pack_10_Nazi_Zombies_v2
 !Files/entitybank/Script_Pack_10_Nazi_Zombies_v2/*
+!Files/entitybank/Script_Pack_10_Nazi_Zombies_v2/*/*
+!Files/entitybank/Script_Pack_10_Nazi_Zombies_v2/*/*/*
 
 # Audio
 !Files/audiobank
 !Files/audiobank/Script_Pack_10_Nazi_Zombies_v2
 !Files/audiobank/Script_Pack_10_Nazi_Zombies_v2/*
+!Files/audiobank/Script_Pack_10_Nazi_Zombies_v2/*/*
+
+# Huds
+!Files/gamecore
+!Files/gamecore/huds
+!Files/gamecore/huds/Script_Pack_10_Nazi_Zombies_v2
+!Files/gamecore/huds/Script_Pack_10_Nazi_Zombies_v2/*
+
+
+# Ignore bin and dbo files
+*.bin
+*.dbo
