@@ -3,7 +3,7 @@ Script pack allows you to make the legendary game mode 'Nazi Zombies' of Call of
 
 Simple installation:
 1. Click green button "code"
-2. Download unzip
+2. Download ZIP
 3. Unzip "Files" folder in "FPS Creator" directory
 
 Run demo map:
