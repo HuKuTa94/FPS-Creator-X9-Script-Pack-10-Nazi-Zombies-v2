@@ -1,0 +1,75 @@
+;header
+
+desc	= zombie1
+
+;ai
+aiinit			= Script_Pack_10_Nazi_Zombies_v2\zombies\AI_Start.fpi
+aimain		= Script_Pack_10_Nazi_Zombies_v2\zombies\AI_Main.fpi
+aidestroy	= Script_Pack_10_Nazi_Zombies_v2\zombies\AI_Destroy.fpi
+aishoot		= Script_Pack_10_Nazi_Zombies_v2\zombies\Setup_TGC_Character.fpi
+soundset	= male
+
+;spawn
+spawnmax		= 1
+spawndelay	= 0
+spawnqty		= 0
+
+;orientation
+model = entitybank\scifi\characters\zombie.X
+offx 	= 0
+offy	= 0
+offz 	= 0
+rotx 	= 0
+roty 	= 0
+rotz 	= 0
+scale = 85
+fixnewy = 180
+
+;cone of sight
+coneheight = 53
+coneangle	 = 50
+
+;visualinfo
+textured	= entitybank\scifi\characters\zombie_1_D2.dds
+effect		= effectbank\bumpbonerev\bumpbonerev.fx
+castshadow = 0
+
+;decals
+decalmax	= 2
+decal0		= red
+decal1		= blood
+
+;identity details
+strength		= 100
+ischaracter	= 1
+hasweapon	= 
+isobjective		= 0
+cantakeweapon = 0
+
+;bodypartslimbinfo (1=head/2=body/3+4=armslr/5+6=legslr)
+limbmax = 0
+
+;animationinfo
+animmax	= 10
+
+; animJump
+anim0	=	463,492
+
+; animLanding
+anim1	=	190,209
+
+; animWalk#
+anim2	=	235,259
+
+; animRun#
+anim3	=	300,318
+
+; animAttack#1..4
+anim4	=	319,355
+anim5	=	330,355
+
+; animDeath#1..4
+anim6	=	0,19
+anim7	=	40,59
+anim8	=	120,139
+anim9	=	80,99

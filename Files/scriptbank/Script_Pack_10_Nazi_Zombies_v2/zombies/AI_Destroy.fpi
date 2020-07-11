@@ -1,0 +1,35 @@
+; Script by HuKuTa94
+; use this script in ai/destroy field
+
+
+;======================================================
+
+;// reduce game mode vars
+:state=0:subvar=aliveZombiesLeft 1,subvar=zombiesInGame 1
+
+;// reset speed animation and remove from DarkAI
+:state=0:addaiteam=1,aisetspeed=60,airemove,coloff,setbulletcoloff=1,state=1
+
+;// kill award
+:state=1,varequal=isBoss 0:addvar=money 50,state=2
+:state=1,varequal=isBoss 1:addvar=money 100,state=2
+
+
+;======================================================
+
+;// choose random animation
+:state=2,random=5:setvar=currentAnim %animDeath1,state=3
+:state=2,random=5:setvar=currentAnim %animDeath2,state=3
+:state=2,random=5:setvar=currentAnim %animDeath3,state=3
+:state=2,random=5:setvar=currentAnim %animDeath4,state=3
+
+;// play animation
+:state=3:setframe=%currentAnim,state=4
+:state=4:incframe=%currentAnim
+:state=4,frameatend=%currentAnim:state=5
+
+
+;======================================================
+
+;// delete the body from game
+:state=5:destroy

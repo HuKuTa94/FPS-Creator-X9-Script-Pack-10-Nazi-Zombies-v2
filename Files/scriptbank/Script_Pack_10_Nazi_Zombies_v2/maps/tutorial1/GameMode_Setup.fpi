@@ -1,0 +1,32 @@
+; Script by HuKuTa94
+; make copy of this script for your level and use it in ai/main field
+
+; vars description and manual: you can change editable vars to setup your game mode
+
+; editable vars:
+; money								// player's money at start
+; waveMax								// sets victory wave; use a big value for endless game
+; zombiesCountIncrement		// adds X zombies in each wave
+; zombiesInGameMax				// sets max count of active (spawned) zombies in the game (set to 3-4 to reach good performance)
+; bossWaveInterval				// 0 - disable boss waves; >0 - boss wave each (x)th wave (prefer set to 5 for more gameplay balance)
+; bossesCountIncrement			// adds X boss-zombies for the next boss wave
+; runningZombiesAfterWave	// sets wave when zombies can run
+
+
+;==================================================================================
+
+;// vars declaration
+:state=0:dimvar=runningZombiesAfterWave,dimvar=money,dimvar=waveMax,dimvar=zombiesCountIncrement,dimvar=zombiesInGameMax,dimvar=bossWaveInterval,dimvar=bossesCountIncrement
+
+;======= EDITABLE VARS =========
+:state=0:setvar=money 500
+:state=0:setvar=waveMax 99
+:state=0:setvar=zombiesCountIncrement 4
+:state=0:setvar=zombiesInGameMax 2
+:state=0:setvar=bossWaveInterval 5
+:state=0:setvar=bossesCountIncrement 2
+:state=0:setvar=runningZombiesAfterWave 5
+;===========================
+
+;// run main script
+:state=0:runfpi=Script_Pack_10_Nazi_Zombies_v2\core\GameMode_Main.fpi

@@ -1,0 +1,17 @@
+; Script by HuKuTa94
+; use this script for trigger zone in ai/main field to enable spawning of zombies (for multiroom-level)
+
+
+;=================================
+
+;// init
+:state=0:floorlogic,state=1
+
+
+;=================================
+
+;// enable spawning
+:state=1,plrwithinzone=1:activateifused=1,state=2
+
+;// disable spawning
+:state=2,plrwithinzone=0:activateifused=0,state=1

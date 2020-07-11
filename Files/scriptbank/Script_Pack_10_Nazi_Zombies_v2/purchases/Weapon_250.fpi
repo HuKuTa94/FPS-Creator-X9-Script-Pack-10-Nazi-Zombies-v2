@@ -1,0 +1,14 @@
+; Script by HuKuTa94
+; use this script in ai/main field
+
+; non-editable vars (dont change these vars!):
+; cost	//  cost of weapon 
+
+
+;=============================================================================================================================================================
+
+;// non-editable vars (cause of VARGREATER=X fpi command, it means VAR>X but, not VAR>=X)
+:state=0:dimlocalvar=cost,setvar=cost 249
+
+;// run purchase script
+:state=0:runfpi=Script_Pack_10_Nazi_Zombies_v2\purchases\WeaponPurchase.fpi

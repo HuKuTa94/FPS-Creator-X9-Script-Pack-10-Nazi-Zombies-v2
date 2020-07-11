@@ -1,0 +1,12 @@
+; Script by HuKuTa94
+; use this script in ai/main field
+
+;// init
+:state=0:floorlogic,setbulletcoloff=1,hide,activate=0,state=2
+
+;// collision on/off
+:state=1,plrdistwithin=60:colon,state=2
+:state=2,plrdistfurther=60:coloff,state=1
+
+;// activated by debris
+:state=1,activated=1:destroy

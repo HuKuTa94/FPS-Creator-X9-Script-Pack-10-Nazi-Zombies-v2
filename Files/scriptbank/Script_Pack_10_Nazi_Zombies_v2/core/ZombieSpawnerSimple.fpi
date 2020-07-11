@@ -1,0 +1,17 @@
+; Script by HuKuTa94
+; use this script for trigger zone in ai/main field to enable spawning of zombies (for 1 room-level only)
+
+
+;=================================
+
+;// init
+:state=0:floorlogic,state=1
+
+
+;=================================
+
+;// activate zombie spawning
+:state=1,varequal=wave 1:activateifused=1,state=2
+
+;// delete trigger
+:state=2:destroy

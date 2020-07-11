@@ -1,0 +1,69 @@
+; Script by HuKuTa94
+; !!! DONT USE THIS SCRIPT IN ANY FIELD !!!
+
+; vars description and manual: you can change editable vars to setup difficulty
+
+; non-editable vars (dont change these vars!):
+; animMove				// current animation of movement (run or walk)
+; healthNew				// sets new zombie max health in current wave
+
+; editable vars:
+; healthIncrement		// adds X zombie's health in each wave
+; zombieStartHealth	// start health of zombies
+; bossStartHealth		// boss health of zombies
+; damage					// used in damage events
+
+;===========================================================================================================================
+
+;// vars declaration
+:state=0:dimlocalvar=damage,dimlocalvar=bossStartHealth,dimlocalvar=zombieStartHealth,dimlocalvar=animMove,dimlocalvar=healthIncrement,dimlocalvar=healthNew
+
+;======= EDITABLE VARS =========
+:state=0:setvar=healthIncrement 8
+:state=0:setvar=zombieStartHealth 50
+:state=0:setvar=bossStartHealth 80
+:state=0:setvar=damage 45
+;===========================
+
+;// hide the model
+:state=0:hide,setbulletcoloff=1,activate=0,alwaysactive=1,state=1
+
+
+;===========================================================================================================================
+
+;// game in progress phase
+;// player in spawn zone
+:state=1,random=20,activated=1,varless=zombiesInGame %zombiesInGameMax,varnotequal=respawnZombiesLeft 0:logicburst,state=2
+
+
+;===========================================================================================================================
+
+;// respawn logic of default zombie
+:state=2,varequal=isBoss 0,varequal=isBossWave 1:state=3
+:state=2,varequal=isBoss 0,varequal=isBossWave 0:state=10
+
+;// waiting for ending boss wave (for default zombies)
+:state=3,varequal=isBossWave 0:state=1
+
+
+;// respawn logic of boss zombie
+:state=2,varequal=isBoss 1,varequal=isBossWave 0:state=4
+:state=2,varequal=isBoss 1,varequal=isBossWave 1:state=10
+
+;// waiting for begining boss wave (for boss zombies)
+:state=4,varequal=isBossWave 1:state=1
+
+
+;===========================================================================================================================
+
+;// calculate new health
+:state=10,varequal=isBoss 0:setvar=$EH %zombieStartHealth,state=11
+:state=10,varequal=isBoss 1:setvar=$EH %bossStartHealth,state=11
+:state=11:setvar=healthNew %healthIncrement,mulvar=healthNew %wave,addvar=$EH %healthNew,state=12
+
+;// set animation of movement
+:state=12,vargreater=wave %runningZombiesAfterWave:setvar=animMove %animRun,state=13
+:state=12,varless=wave %runningZombiesAfterWave:setvar=animMove %animWalk,state=13
+
+;// respawn
+:state=13:addvar=zombiesInGame 1,subvar=respawnZombiesLeft 1,show,setbulletcoloff=0,runfpidefault=1

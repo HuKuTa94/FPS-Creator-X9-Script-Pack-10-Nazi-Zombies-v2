@@ -1,0 +1,87 @@
+; Script by HuKuTa94
+; use this script in ai/main field to debug main game logic
+
+; !!! WARNING !!!
+; This script can be the reason of the crash game cause of no placed GameMode_Setup.fpi and GameMode_Main.fpi scripts on level!
+
+
+;=============================================================================================================================================================
+
+;// waiting for init GameMode_Setup.fpi and GameMode_Main.fpi scripts
+:state=0:etimerstart,floorlogic,state=1
+
+;// init debug script
+:state=1,etimergreater=2000:state=2,dimlocalvar=textSize,setvar=textSize 23,dimlocalvar=posY,setvar=posY 10,dimlocalvar=posYStep,setvar=posYStep 1.6,dimlocalvar=offset,setvar=offset 2.2
+
+
+;=============================================================================================================================================================
+
+;// wave vars info
+;// wave
+:state=2:hudreset,hudx=3,hudy=%posY,addvar=posY 1,hudsize=%textSize,hudtext=wave:,hudmake=display
+:state=2:hudreset,hudx=5.5,hudy=%posY,addvar=posY %posYStep,hudsizex=%textSize,hudsizey=%textSize,hudimage=gamecore\huds\Script_Pack_10_Nazi_Zombies_v2\numeric.dds,hudtype=6,huduservar=wave,hudmake=numeric
+
+;// wave max (victory)
+:state=2:hudreset,hudx=4,hudy=%posY,addvar=posY 1,hudsize=%textSize,hudtext=waveMax:,hudmake=display
+:state=2:hudreset,hudx=7,hudy=%posY,addvar=posY %posYStep,hudsizex=%textSize,hudsizey=%textSize,hudimage=gamecore\huds\Script_Pack_10_Nazi_Zombies_v2\numeric.dds,hudtype=6,huduservar=waveMax,hudmake=numeric
+
+;// boss wave next
+:state=2:hudreset,hudx=5.3,hudy=%posY,addvar=posY 1,hudsize=%textSize,hudtext=bossWaveNext:,hudmake=display
+:state=2:hudreset,hudx=10,hudy=%posY,addvar=posY %posYStep,hudsizex=%textSize,hudsizey=%textSize,hudimage=gamecore\huds\Script_Pack_10_Nazi_Zombies_v2\numeric.dds,hudtype=6,huduservar=bossWaveNext,hudmake=numeric
+
+;// boss wave interval
+:state=2:hudreset,hudx=6,hudy=%posY,addvar=posY 1,hudsize=%textSize,hudtext=bossWaveInterval:,hudmake=display
+:state=2:hudreset,hudx=11.5,hudy=%posY,addvar=posY %posYStep,hudsizex=%textSize,hudsizey=%textSize,hudimage=gamecore\huds\Script_Pack_10_Nazi_Zombies_v2\numeric.dds,hudtype=6,huduservar=bossWaveInterval,hudmake=numeric
+
+;// is boss wave
+:state=2:hudreset,hudx=4.5,hudy=%posY,addvar=posY 1,hudsize=%textSize,hudtext=isBossWave:,hudmake=display
+:state=2:hudreset,hudx=8.5,hudy=%posY,addvar=posY %posYStep,hudsizex=%textSize,hudsizey=%textSize,hudimage=gamecore\huds\Script_Pack_10_Nazi_Zombies_v2\numeric.dds,hudtype=6,huduservar=isBossWave,hudmake=numeric
+
+:state=2:addvar=posY %offset
+
+
+;=============================================================================================================================================================
+
+;// count of zombies info
+;// bosses count in wave
+:state=2:hudreset,hudx=6.6,hudy=%posY,addvar=posY 1,hudsize=%textSize,hudtext=bossesCountInWave:,hudmake=display
+:state=2:hudreset,hudx=12.5,hudy=%posY,addvar=posY %posYStep,hudsizex=%textSize,hudsizey=%textSize,hudimage=gamecore\huds\Script_Pack_10_Nazi_Zombies_v2\numeric.dds,hudtype=6,huduservar=bossesCountInWave,hudmake=numeric
+
+;// bosses count increment
+:state=2:hudreset,hudx=7.2,hudy=%posY,addvar=posY 1,hudsize=%textSize,hudtext=bossesCountIncrement:,hudmake=display
+:state=2:hudreset,hudx=14,hudy=%posY,addvar=posY %posYStep,hudsizex=%textSize,hudsizey=%textSize,hudimage=gamecore\huds\Script_Pack_10_Nazi_Zombies_v2\numeric.dds,hudtype=6,huduservar=bossesCountIncrement,hudmake=numeric
+
+;// zombies count in wave
+:state=2:hudreset,hudx=7,hudy=%posY,addvar=posY 1,hudsize=%textSize,hudtext=zombiesCountInWave:,hudmake=display
+:state=2:hudreset,hudx=13.5,hudy=%posY,addvar=posY %posYStep,hudsizex=%textSize,hudsizey=%textSize,hudimage=gamecore\huds\Script_Pack_10_Nazi_Zombies_v2\numeric.dds,hudtype=6,huduservar=zombiesCountInWave,hudmake=numeric
+
+;// zombies increment
+:state=2:hudreset,hudx=7.5,hudy=%posY,addvar=posY 1,hudsize=%textSize,hudtext=zombiesCountIncrement:,hudmake=display
+:state=2:hudreset,hudx=14.5,hudy=%posY,addvar=posY %posYStep,hudsizex=%textSize,hudsizey=%textSize,hudimage=gamecore\huds\Script_Pack_10_Nazi_Zombies_v2\numeric.dds,hudtype=6,huduservar=zombiesCountIncrement,hudmake=numeric
+
+:state=2:addvar=posY %offset
+
+
+;=============================================================================================================================================================
+
+;// count of zombies in game
+;// zombies in game max
+:state=2:hudreset,hudx=6.5,hudy=%posY,addvar=posY 1,hudsize=%textSize,hudtext=zombiesInGameMax:,hudmake=display
+:state=2:hudreset,hudx=12.5,hudy=%posY,addvar=posY %posYStep,hudsizex=%textSize,hudsizey=%textSize,hudimage=gamecore\huds\Script_Pack_10_Nazi_Zombies_v2\numeric.dds,hudtype=6,huduservar=zombiesInGameMax,hudmake=numeric
+
+;// zombies in game
+:state=2:hudreset,hudx=5.5,hudy=%posY,addvar=posY 1,hudsize=%textSize,hudtext=zombiesInGame:,hudmake=display
+:state=2:hudreset,hudx=10.5,hudy=%posY,addvar=posY %posYStep,hudsizex=%textSize,hudsizey=%textSize,hudimage=gamecore\huds\Script_Pack_10_Nazi_Zombies_v2\numeric.dds,hudtype=6,huduservar=zombiesInGame,hudmake=numeric
+
+;// respawn zombies left
+:state=2:hudreset,hudx=6.5,hudy=%posY,addvar=posY 1,hudsize=%textSize,hudtext=respawnZombiesLeft:,hudmake=display
+:state=2:hudreset,hudx=12.5,hudy=%posY,addvar=posY %posYStep,hudsizex=%textSize,hudsizey=%textSize,hudimage=gamecore\huds\Script_Pack_10_Nazi_Zombies_v2\numeric.dds,hudtype=6,huduservar=respawnZombiesLeft,hudmake=numeric
+
+;// alive zombies left
+:state=2:hudreset,hudx=5.5,hudy=%posY,addvar=posY 1,hudsize=%textSize,hudtext=aliveZombiesLeft:,hudmake=display
+:state=2:hudreset,hudx=10.8,hudy=%posY,addvar=posY %posYStep,hudsizex=%textSize,hudsizey=%textSize,hudimage=gamecore\huds\Script_Pack_10_Nazi_Zombies_v2\numeric.dds,hudtype=6,huduservar=aliveZombiesLeft,hudmake=numeric
+
+
+;=============================================================================================================================================================
+
+:state=2:state=99

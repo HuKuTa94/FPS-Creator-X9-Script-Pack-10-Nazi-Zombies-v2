@@ -1,0 +1,79 @@
+; Script by HuKuTa94
+; make copy of this script for your level and use it in ai/main field
+
+; vars description and manual: you can change editable vars to setup your boss waves environment
+
+; editable vars:
+; defaultAmbience				// ambience and fog for default waves
+; defaultAmbienceRed		// ...
+; defaultAmbienceGreen		// ...
+; defaultAmbienceBlue		// ...
+; defaultFog						// 0 - disable fog; 1 - enable fog for default waves
+; defaultFogRed					// fog properties for default waves
+; defaultFogGreen				// ...
+; defaultFogBlue				// ...
+; defaultFogStart				// ...
+; defaultFogEnd					// ...
+; bossAmbience					// ambience and fog for boss waves
+; bossAmbienceRed			// ...
+; bossAmbienceGreen			// ...
+; bossAmbienceBlue			// ...
+; bossFog							// 0 - disable fog; 1 - enable fog for boss waves
+; bossFogRed						// fog properties for boss waves
+; bossFogGreen					// ...
+; bossFogBlue					// ...
+; bossFogStart					// ...
+; bossFogEnd						// ...
+
+
+;===========================================================================================================================
+
+;// editable vars declaration
+;// ambience light and fog
+:state=0:dimlocalvar=defaultAmbience,dimlocalvar=defaultAmbienceRed,dimlocalvar=defaultAmbienceGreen,dimlocalvar=defaultAmbienceBlue,dimlocalvar=defaultFog,dimlocalvar=defaultFogRed,dimlocalvar=defaultFogGreen,dimlocalvar=defaultFogBlue,dimlocalvar=defaultFogStart,dimlocalvar=defaultFogEnd
+:state=0:dimlocalvar=bossAmbience,dimlocalvar=bossAmbienceRed,dimlocalvar=bossAmbienceGreen,dimlocalvar=bossAmbienceBlue,dimlocalvar=bossFog,dimlocalvar=bossFogRed,dimlocalvar=bossFogGreen,dimlocalvar=bossFogBlue,dimlocalvar=bossFogStart,dimlocalvar=bossFogEnd
+
+
+;===========================================================================================================================
+
+;======= EDITABLE VARS =========
+;// default wave environment
+;// ambience light and color
+:state=0:setvar=defaultAmbience 15
+:state=0:setvar=defaultAmbienceRed 240
+:state=0:setvar=defaultAmbienceGreen 208
+:state=0:setvar=defaultAmbienceBlue 249
+
+;// fog and color
+:state=0:setvar=defaultFog 1
+:state=0:setvar=defaultFogRed 240
+:state=0:setvar=defaultFogGreen 208
+:state=0:setvar=defaultFogBlue 249
+
+;// fog properties
+:state=0:setvar=defaultFogStart 400
+:state=0:setvar=defaultFogEnd 1000
+
+;// boss wave environment
+;// ambience light and color
+:state=0:setvar=bossAmbience 7
+:state=0:setvar=bossAmbienceRed 90
+:state=0:setvar=bossAmbienceGreen 0
+:state=0:setvar=bossAmbienceBlue 0
+
+;// fog and color
+:state=0:setvar=bossFog 1
+:state=0:setvar=bossFogRed 90
+:state=0:setvar=bossFogGreen 0
+:state=0:setvar=bossFogBlue 0
+
+;// fog properties
+:state=0:setvar=bossFogStart 50
+:state=0:setvar=bossFogEnd 600
+;==========================
+
+
+;===========================================================================================================================
+
+;// run main logic script
+:state=0:runfpi=Script_Pack_10_Nazi_Zombies_v2\core\BossWaveEnvironment.fpi

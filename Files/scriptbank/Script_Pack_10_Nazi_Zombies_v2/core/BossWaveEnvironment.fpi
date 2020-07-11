@@ -1,0 +1,121 @@
+; Script by HuKuTa94
+; !!! DONT USE THIS SCRIPT IN ANY FIELD !!!
+
+; non-editable vars (dont change these vars!):
+; ambience					// currrent value of the amount of ambient light for the level
+; ambienceRed				// currrent value of the amount of red ambient light for the level
+; ambienceGreen			// currrent value of the amount of green ambient light for the level
+; ambienceBlue				// currrent value of the amount of blue ambient light for the level
+; fog								// current flag for fog (1 - fog enabled, 0 - fog disabled)
+; fogRed						// current fog properties
+; fogGreen						// ...
+; fogBlue						// ...
+; fogStart						// ...
+; fogEnd						// ...
+
+; editable vars: (edit these vars in individual BossWaveEnvironment_Setup scripts)
+; defaultAmbience				// ambience and fog for default waves
+; defaultAmbienceRed		// ...
+; defaultAmbienceGreen		// ...
+; defaultAmbienceBlue		// ...
+; defaultFog						// 0 - disable fog; 1 - enable fog for default waves
+; defaultFogRed					// fog properties for default waves
+; defaultFogGreen				// ...
+; defaultFogBlue				// ...
+; defaultFogStart				// ...
+; defaultFogEnd					// ...
+; bossAmbience					// ambience and fog for boss waves
+; bossAmbienceRed			// ...
+; bossAmbienceGreen			// ...
+; bossAmbienceBlue			// ...
+; bossFog							// 0 - disable fog; 1 - enable fog for boss waves
+; bossFogRed						// fog properties for boss waves
+; bossFogGreen					// ...
+; bossFogBlue					// ...
+; bossFogStart					// ...
+; bossFogEnd						// ...
+
+
+;===========================================================================================================================
+
+;// init trigger zone
+:state=0:floorlogic
+
+
+;===========================================================================================================================
+
+;// non-editable vars declaration
+;// current environment properties
+:state=0:dimlocalvar=ambience,dimlocalvar=ambienceRed,dimlocalvar=ambienceGreen,dimlocalvar=ambienceBlue
+:state=0:dimlocalvar=fog,dimlocalvar=fogRed,dimlocalvar=fogGreen,dimlocalvar=fogBlue,dimlocalvar=fogStart,dimlocalvar=fogEnd
+
+;// vars of destination target and steps
+;// ambience light and color
+:state=0:dimlocalvar=targetAmbience,dimlocalvar=targetAmbienceRed,dimlocalvar=targetAmbienceGreen,dimlocalvar=targetAmbienceBlue
+:state=0:dimlocalvar=stepAmbience,dimlocalvar=stepAmbienceRed,dimlocalvar=stepAmbienceGreen,dimlocalvar=stepAmbienceBlue
+:state=0:setvar=stepAmbience 1,setvar=stepAmbienceRed 1,setvar=stepAmbienceGreen 1,setvar=stepAmbienceBlue 1
+
+;// fog properties
+:state=0:dimlocalvar=targetFogStart,dimlocalvar=targetFogEnd,dimlocalvar=targetFogRed,dimlocalvar=targetFogGreen,dimlocalvar=targetFogBlue
+:state=0:dimlocalvar=stepFogStart,dimlocalvar=stepFogEnd,dimlocalvar=stepFogRed,dimlocalvar=stepFogGreen,dimlocalvar=stepFogBlue
+:state=0:setvar=stepFogStart 1,setvar=stepFogEnd 1,setvar=stepFogRed 1,setvar=stepFogGreen 1,setvar=stepFogBlue 1
+
+;// environment switcher flags
+:state=0:dimlocalvar=waveType,setvar=waveType 0
+
+
+;===========================================================================================================================
+
+;// game in progress phase
+:state=0:state=1,setvar=ambience %defaultAmbience,setvar=ambienceRed %defaultAmbienceRed,setvar=ambienceGreen %defaultAmbienceGreen,setvar=ambienceBlue %defaultAmbienceBlue,setvar=fog %defaultFog,setvar=fogRed %defaultFogRed,setvar=fogGreen %defaultFogGreen,setvar=fogBlue %defaultFogBlue,setvar=fogStart %defaultFogStart,setvar=fogEnd %defaultFogEnd
+
+;// current environment
+:always:ambience=%ambience,ambiencered=%ambienceRed,ambiencegreen=%ambienceGreen,ambienceblue=%ambienceBlue,fog=%fog,fogred=%fogRed,foggreen=%fogGreen,fogblue=%fogBlue,fogstart=%fogStart,fogend=%fogEnd
+
+;// switch to default/boss environment
+:state=1,varequal=isBossWave 0,varnotequal=waveType 0:setvar=fog %defaultFog,setvar=targetFogEnd %defaultFogEnd,setvar=targetFogSart %defaultFogStart,setvar=targetFogBlue %defaultFogBlue,setvar=targetFogGreen %defaultFogGreen,setvar=targetFogRed %defaultFogRed,setvar=targetAmbience %defaultAmbience,setvar=targetAmbienceRed %defaultAmbienceRed,setvar=targetAmbienceGreen %defaultAmbienceGreen,setvar=targetAmbienceBlue %defaultAmbienceBlue,state=2
+:state=1,varequal=isBossWave 1,varnotequal=waveType 1:setvar=fog %bossFog,setvar=targetFogEnd %bossFogEnd,setvar=targetFogSart %bossFogStart,setvar=targetFogBlue %bossFogBlue,setvar=targetFogGreen %bossFogGreen,setvar=targetFogRed %bossFogRed,setvar=targetAmbience %bossAmbience,setvar=targetAmbienceRed %bossAmbienceRed,setvar=targetAmbienceGreen %bossAmbienceGreen,setvar=targetAmbienceBlue %bossAmbienceBlue,state=2
+
+
+;===========================================================================================================================
+
+;// the direction of the vars destination
+;// ambience properties
+:state=2,vargreater=ambience %targetAmbience:setvar=stepAmbience -0.5
+:state=2,vargreater=ambienceRed %targetAmbienceRed:setvar=stepAmbienceRed -1
+:state=2,vargreater=ambienceGreen %targetAmbienceGreen:setvar=stepAmbienceGreen -1
+:state=2,vargreater=ambienceBlue %targetAmbienceBlue:setvar=stepAmbienceBlue -1
+
+;// fog properties
+:state=2,vargreater=fogStart %targetFogStart:setvar=stepFogStart -1
+:state=2,vargreater=fogEnd %targetFogEnd:setvar=stepFogEnd -1
+
+:state=2,vargreater=fogRed %targetFogRed:setvar=stepFogRed -1
+:state=2,vargreater=fogGreen %targetFogGreen:setvar=stepFogGreen -1
+:state=2,vargreater=fogBlue %targetFogBlue:setvar=stepFogBlue -1
+
+;// run environment logic
+:state=2:setvar=waveType %isBossWave,state=10
+
+
+;===========================================================================================================================
+
+;// environment vars chasing
+;// ambience properties
+:state=10,varnotequal=ambience %targetAmbience:addvar=ambience %stepAmbience
+:state=10,varnotequal=ambienceRed %targetAmbienceRed:addvar=ambienceRed %stepAmbienceRed
+:state=10,varnotequal=ambienceGreen %targetAmbienceGreen:addvar=ambienceGreen %stepAmbienceGreen
+:state=10,varnotequal=ambienceBlue %targetAmbienceBlue:addvar=ambienceBlue %stepAmbienceBlue
+
+;// fog properties
+:state=10,varnotequal=fogStart %targetFogStart:addvar=fogStart %stepFogStart
+:state=10,varnotequal=fogEnd %targetFogEnd:addvar=fogEnd %stepFogEnd
+:state=10,varnotequal=fogRed %targetFogRed:addvar=fogRed %stepFogRed
+:state=10,varnotequal=fogGreen %targetFogGreen:addvar=fogGreen %stepFogGreen
+:state=10,varnotequal=fogBlue %targetFogBlue:addvar=fogBlue %stepFogBlue
+
+;// all vars reached destination
+:state=10,varequal=ambience %targetAmbience,varequal=ambienceRed %targetAmbienceRed,varequal=ambienceGreen %targetAmbienceGreen,varequal=ambienceBlue %targetAmbienceBlue:state=11
+
+;// reset all step vars to positive values
+:state=11:setvar=stepAmbience 0.5,setvar=stepAmbienceRed 1,setvar=stepAmbienceGreen 1,setvar=stepAmbienceBlue 1,setvar=stepFogRed 1,setvar=stepFogGreen 1,setvar=stepFogBlue 1,setvar=stepFogStart 1,setvar=stepFogEnd 1,state=1

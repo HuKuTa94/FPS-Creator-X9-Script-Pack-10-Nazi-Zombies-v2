@@ -1,0 +1,83 @@
+; Script by HuKuTa94
+; use this script in ai/main field
+
+; vars description and manual: you can change editable vars to setup your game mode
+
+; non-editable vars (dont change these vars!):
+; plank						// current animation/plank of barricade
+; isHudShowed			// 0 - hud hidden; 1 - hud showed
+
+; FPI command values:
+; activated=3 	// all planks are broken
+; activated=2 	// idle state of barricade
+; activated=1 	// zombie breaks a plank
+; activated=10	// boss breaks all planks
+; activated=0 	// player repaired a plank
+; animate=0 		// all planks are repaired
+; animate=1		// plank #1 is broken
+; animate=2 		// plank #2 is broken
+; animate=3 		// plank #3 is broken
+; animate=4 		// plank #4 is broken
+; animate=5 		// plank #5 is broken
+; animate=6 		// all planks are broken
+
+
+;===============================================================
+
+;// var declaration
+:state=0:dimlocalvar=isHudShowed,dimlocalvar=plank,setvar=plank 6
+
+;// init and run main logic
+:state=0:activate=2,floorlogic,setbulletcoloff=1,coloff,setframe=5,state=1,soundscale=100
+
+
+;===============================================================
+
+;// zombie breaks plank
+:activated=1:activate=2,subvar=plank 1,state=2
+:activated=10:activate=3,setvar=plank 1,state=2
+
+;// random break sound
+:state=2,random=3:sound=audiobank\Script_Pack_10_Nazi_Zombies_v2\barricade_break1.wav,state=3
+:state=2,random=3:sound=audiobank\Script_Pack_10_Nazi_Zombies_v2\barricade_break2.wav,state=3
+:state=2,random=3:sound=audiobank\Script_Pack_10_Nazi_Zombies_v2\barricade_break3.wav,state=3
+
+;// plank animation
+:state=3:setframe=%plank,state=4
+:state=4:incframe=%plank
+:state=4,frameatend=%plank:state=5
+
+;// are all planks broken?
+:state=5,varnotequal=plank 1:state=1
+:state=5,varequal=plank 1:activate=3,state=1
+
+
+;===============================================================
+
+;// hud show/hide 
+:state=1,varequal=isHudShowed 0,plrdistwithin=65,varless=plank 5:setvar=isHudShowed 1,hudshow=repair
+:state=1,varequal=isHudShowed 1,plrdistfurther=65:state=100
+:state=1,varequal=isHudShowed 1,vargreater=plank 6:state=100
+:state=100:setvar=isHudShowed 0,hudunshow=repair,state=1
+
+
+;===============================================================
+
+;// interaction
+:state=1,plrdistwithin=65,varless=plank 5,keypressed=33 1:etimerstart,state=7
+
+;// repairing timer
+:state=7,plrdistfurther=65:state=1
+:state=7,keypressed=33 0:state=1
+:state=7,plrdistwithin=65,keypressed=33 1,etimergreater=750:state=8
+
+;// plank animation
+:state=8:decframe=%plank
+:state=8,frameatstart=%plank:state=9,addvar=plank 1,activate=2
+
+;// random repair sound
+:state=9,random=3:sound=audiobank\Script_Pack_10_Nazi_Zombies_v2\barricade_repair1.wav,state=10
+:state=9,random=3:sound=audiobank\Script_Pack_10_Nazi_Zombies_v2\barricade_repair2.wav,state=10
+
+;// award
+:state=10:addvar=money 10,state=1

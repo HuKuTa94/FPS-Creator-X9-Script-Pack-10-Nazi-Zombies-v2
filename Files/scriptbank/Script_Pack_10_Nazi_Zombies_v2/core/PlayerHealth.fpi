@@ -1,0 +1,90 @@
+; Script by HuKuTa94
+; use this script in ai/main for trigger zone
+
+; vars description and manual
+
+; non-editable vars (dont change these vars!):
+; hud#Alpha					// current alpha for hud#
+; hudAlphaStep				// alpha increment
+; playerCurrentHealth		// current player's health for damage event detection
+; playerCriticalLevel1		// low blood screen intensity
+; playerCriticalLevel2		// mid blood screen intensity
+; playerCriticalLevel3		// high blood screen intensity
+; nextState					// it is using for splitting of the script logic 
+
+; editable vars: (edit these vars in individual GameMode_Setup scripts)
+; playerMaxHealth			// max health of player at start
+; playerCriticalHealth		// the value of player's health at which huds appear
+; regenerationTime			// the time after which the player receives healing
+
+
+;=====================================================================================
+
+;// vars declaration
+:state=0:dimlocalvar=nextState,dimlocalvar=hudAlphaStep,dimlocalvar=hud1Alpha,dimlocalvar=hud2Alpha,dimlocalvar=hud3Alpha
+:state=0:dimlocalvar=hud1AlphaMax,dimlocalvar=hud2AlphaMax,dimlocalvar=hud3AlphaMax
+:state=0:dimlocalvar=playerCriticalLevel1,dimlocalvar=playerCriticalLevel2,dimlocalvar=playerCriticalLevel3
+:state=0:dimlocalvar=regenerationTime,dimvar=playerMaxHealth,dimlocalvar=playerCriticalHealth,dimlocalvar=playerCurrentHealth
+
+
+;======= EDITABLE VARS =========
+:state=0:setvar=playerMaxHealth 100
+:state=0:setvar=playerCriticalHealth 80
+:state=0:setvar=regenerationTime 6000
+;===========================
+
+
+;// non-editable vars
+:state=0:setvar=hudAlphaStep 1
+:state=0:setvar=playerCriticalLevel3 %playerCriticalHealth,divvar=playerCriticalLevel3 3
+:state=0:setvar=playerCriticalLevel2 %playerCriticalLevel3,addvar=playerCriticalLevel2 %playerCriticalLevel3
+:state=0:setvar=playerCriticalLevel1 %playerCriticalLevel2,addvar=playerCriticalLevel1 %playerCriticalLevel3
+
+
+;// init huds
+:state=0:hudreset,hudx=50,hudy=50,hudglobalx,hudglobaly,hudimage=gamecore\huds\Script_Pack_10_Nazi_Zombies_v2\blood_screen1.dds,hudname=hud1,hudhide=1,hudmake=display
+:state=0:hudreset,hudx=50,hudy=50,hudglobalx,hudglobaly,hudimage=gamecore\huds\Script_Pack_10_Nazi_Zombies_v2\blood_screen2.dds,hudname=hud2,hudhide=1,hudmake=display
+:state=0:hudreset,hudx=50,hudy=50,hudglobalx,hudglobaly,hudimage=gamecore\huds\Script_Pack_10_Nazi_Zombies_v2\blood_screen3.dds,hudname=hud3,hudhide=1,hudmake=display
+
+
+;// run main logic
+:state=0:floorlogic,setvar=$PH %playerMaxHealth,setvar=playerCurrentHealth $PH,state=1
+
+
+;=====================================================================================
+
+;// damage event
+:plrhealthless=%playerCurrentHealth:setvar=playerCurrentHealth $PH,etimerstart,state=2
+
+;// critical player's health
+:state=2,plrhealthless=%playerCriticalHealth:state=3
+
+;// run timer
+:state=2:state=11
+
+;// calculate alpha for huds
+:state=3,plrhealthless=%playerCriticalLevel3:state=4,setvar=hud1AlphaMax 150,setvar=hud2AlphaMax 120,setvar=hud3AlphaMax 100
+:state=3,plrhealthless=%playerCriticalLevel2:state=4,setvar=hud1AlphaMax 120,setvar=hud2AlphaMax 90,setvar=hud3AlphaMax 50
+:state=3,plrhealthless=%playerCriticalLevel1:state=4,setvar=hud1AlphaMax 90,setvar=hud2AlphaMax 60,setvar=hud3AlphaMax 0
+
+
+;=====================================================================================
+
+;// show huds
+:state=4:hudshow=hud1,hudshow=hud2,hudshow=hud3,state=5
+
+;// set chase destination
+:state=5:state=10,setvar=hudAlphaStep 1,setvar=nextState 11
+:state=6:state=10,setvar=hudAlphaStep -1,setvar=nextState 1,setvar=hud1AlphaMax 0,setvar=hud2AlphaMax 0,setvar=hud3AlphaMax 0
+
+;// chase alpha
+:state=10:changehudalpha=hud1 %hud1Alpha,changehudalpha=hud2 %hud2Alpha,changehudalpha=hud3 %hud3Alpha
+:state=10,varnotequal=hud1Alpha %hud1AlphaMax:addvar=hud1Alpha %hudAlphaStep
+:state=10,varnotequal=hud2Alpha %hud2AlphaMax:addvar=hud2Alpha %hudAlphaStep
+:state=10,varnotequal=hud3Alpha %hud3AlphaMax:addvar=hud3Alpha %hudAlphaStep
+:state=10,varequal=hud1Alpha %hud1AlphaMax,varequal=hud2Alpha %hud2AlphaMax,varequal=hud3Alpha %hud3AlphaMax:state=%nextState
+
+;// player's health regeneration
+:state=11,etimergreater=%regenerationTime:state=12
+:state=12,varnotequal=playerCurrentHealth %playerMaxHealth:plraddhealth=1,setvar=playerCurrentHealth $PH
+:state=12,varequal=playerCurrentHealth %playerMaxHealth:state=6

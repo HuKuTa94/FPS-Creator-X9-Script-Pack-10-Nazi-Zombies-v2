@@ -1,0 +1,83 @@
+; Script by HuKuTa94
+; !!! DONT USE THIS SCRIPT IN ANY FIELD !!!
+
+; non-editable vars (dont change these vars!):
+; darkaiMovingSpeed		// speed of DarkAI when it walking (too close to player)
+; darkaiRunningSpeed	// speed of DarkAI when it runnin (too far from player)
+
+
+;=========================================================================
+
+;// non-editable vars
+:state=0:dimlocalvar=darkaiMovingSpeed,dimlocalvar=darkaiRunningSpeed
+
+;// set DarkAI speed of movement 
+:state=0,varequal=animMove %animRun:setvar=darkaiMovingSpeed 180,setvar=darkaiRunningSpeed 150
+:state=0,varequal=animMove %animWalk:setvar=darkaiMovingSpeed 130,setvar=darkaiRunningSpeed 100
+
+;// run attack logic
+:state=0:state=1
+
+
+;=========================================================================
+
+;// money for hits
+:shotdamage=1:addvar=money 10
+
+;// remove from game if player is far
+:plrdistfurther=1000:airemove,subvar=zombiesInGame 1,addvar=zombiesCountInCurrentWave 1,destroy
+
+
+;=========================================================================
+
+;// try to attack the player
+:state=1,plrdistwithin=50:addaiteam=1,aisetspeed=60,airemove,state=15
+
+
+;// path finding
+;// move to player
+:state=1:rotatetoplr,animate=%animMove
+:state=1,varequal=animMove %animRun:runfore=5
+:state=1,varequal=animMove %animWalk:movefore=5
+
+;// player is far, use DarkAI
+:state=1,plrdistfurther=150:state=12
+:state=1,losetarget=8:state=12
+:state=1,plrcannotbeseen:state=12
+:state=12:etimerstart,addaiteam=1,setaiactive=1,state=13
+
+
+;// DarkAI path finding
+:state=13:aifollowplr=1,animate=%animMove
+:state=13,movingforwards=1:aisetspeed=%darkaiMovingSpeed
+:state=13,runningforwards=1:aisetspeed=%darkaiRunningSpeed
+
+;// remove from DarkAI system
+:state=13,etimergreater=350,plrdistwithin=200,plrcanbeseen:state=14
+:state=14:aisetspeed=100,airemove,state=1
+
+
+;=========================================================================
+
+;// choose random animation
+:state=15,random=10:setvar=currentAnim %animAttack1,setvar=currentAnimBeyond %animAttack1Beyond,state=20
+:state=15,random=10:setvar=currentAnim %animAttack2,setvar=currentAnimBeyond %animAttack2Beyond,state=20
+:state=15,random=10:setvar=currentAnim %animAttack3,setvar=currentAnimBeyond %animAttack3Beyond,state=20
+:state=15,random=10:setvar=currentAnim %animAttack4,setvar=currentAnimBeyond %animAttack4Beyond,state=20
+
+;// attack animation begins
+:state=20:setframe=%currentAnim,state=21
+:state=21:incframe=%currentAnim,rotatetoplr
+:state=21,framebeyond=%currentAnim %currentAnimBeyond:state=22
+
+;// damage event
+:state=22,plrdistwithin=60:plrsubhealth=%damage
+:state=22:state=23
+
+;// attack animation ends
+:state=23,plrdistfurther=90:state=0
+:state=23:incframe=%currentAnim
+:state=23,frameatend=%currentAnim:state=24
+
+;// reset animation speed
+:state=24:addaiteam=1,aisetspeed=100,airemove,state=1
