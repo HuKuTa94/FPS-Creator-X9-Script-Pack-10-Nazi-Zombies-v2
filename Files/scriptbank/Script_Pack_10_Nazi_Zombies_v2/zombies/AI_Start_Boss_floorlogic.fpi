@@ -1,0 +1,26 @@
+; Script by HuKuTa94
+; use this script in ai/start field for default pack (stock) TGC characters 
+
+; !!! WARNING !!!
+; use this script on 1-layer level only
+
+; vars description and manual: you can change editable vars to setup character as BOSS or DEFAULT
+
+; editable vars:
+; isBoss		// 0 - for default zombies; 1 - for boss zombie (spawned in boss wave only)
+
+
+;===============================================================
+
+;// var declaration
+:state=0:dimlocalvar=isBoss
+
+;======= EDITABLE VARS =========
+:state=0:setvar=isBoss 1
+;===========================
+
+
+;===============================================================
+
+;// run setup script from Shoot field
+:state=0:floorlogic,alwaysactive=0,shootplr
