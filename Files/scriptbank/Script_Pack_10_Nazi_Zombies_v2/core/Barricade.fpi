@@ -6,6 +6,7 @@
 ; non-editable vars (dont change these vars!):
 ; plank						// current animation/plank of barricade
 ; isHudShowed			// 0 - hud hidden; 1 - hud showed
+: volume					// volume of sounds
 
 ; FPI command values:
 ; activated=3 	// all planks are broken
@@ -25,17 +26,22 @@
 ;===============================================================
 
 ;// var declaration
-:state=0:dimlocalvar=isHudShowed,dimlocalvar=plank,setvar=plank 6
+:state=0:dimlocalvar=volume,dimlocalvar=isHudShowed,dimlocalvar=plank,setvar=plank 6
 
 ;// init and run main logic
-:state=0:activate=2,floorlogic,setbulletcoloff=1,coloff,setframe=5,state=1,soundscale=100
+:state=0:activate=2,floorlogic,setbulletcoloff=1,coloff,setframe=5,state=1
 
 
 ;===============================================================
 
 ;// zombie breaks plank
-:activated=1:activate=2,subvar=plank 1,state=2
-:activated=10:activate=3,setvar=plank 1,state=2
+:activated=1:activate=2,subvar=plank 1,state=20
+:activated=10:activate=3,setvar=plank 1,state=20
+
+;// sound volume
+:state=20:setvar=volume 100,divvar=volume $DIS,mulvar=volume 100
+:state=20,vargreater=volume 100:setvar=volume 100,soundscale=%volume
+:state=20:state=2
 
 ;// random break sound
 :state=2,random=3:sound=audiobank\Script_Pack_10_Nazi_Zombies_v2\barricade_break1.wav,state=3
@@ -73,7 +79,7 @@
 
 ;// plank animation
 :state=8:decframe=%plank
-:state=8,frameatstart=%plank:state=9,addvar=plank 1,activate=2
+:state=8,frameatstart=%plank:state=9,addvar=plank 1,activate=2,soundscale=100
 
 ;// random repair sound
 :state=9,random=3:sound=audiobank\Script_Pack_10_Nazi_Zombies_v2\barricade_repair1.wav,state=10
