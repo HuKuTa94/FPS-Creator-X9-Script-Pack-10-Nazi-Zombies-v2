@@ -34,8 +34,8 @@
 ;// game in progress phase
 ;// player in spawn zone
 :state=1,activated=1:state=100
-:state=100,random=20,varless=zombiesInGame %zombiesInGameMax,varnotequal=respawnZombiesLeft 0:logicburst,state=2
 :state=100,activated=0:state=1
+:state=100,random=20,varless=zombiesInGame %zombiesInGameMax,varnotequal=respawnZombiesLeft 0:logicburst,state=2
 
 
 ;===========================================================================================================================
