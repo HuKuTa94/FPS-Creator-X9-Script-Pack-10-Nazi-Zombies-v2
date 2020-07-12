@@ -1,12 +1,15 @@
 ; Script by HuKuTa94
 ; use this script in ai/main field
 
-;// money for hits
-:shotdamage=1:addvar=money 10
+; vars description:
 
-;// remove from game if player is far
-:plrdistfurther=1000:airemove,subvar=zombiesInGame 1,addvar=zombiesCountInCurrentWave 1,destroy
+; non-editable vars (dont change these vars!):
+; nextState		// it is using for splitting of the script logic 
 
+;===========================================================================================================================
+
+;// vars declaration
+:state=0:dimlocalvar=nextState
 
 ;========================================================================
 
@@ -19,23 +22,27 @@
 
 ;========================================================================
 
-;// waypoint
-;// reached waypoint node
-:state=1,waypointstate=3:state=2
-:state=1,waypointstate=5:state=2
+;// money for hits
+:shotdamage=1:addvar=money 10
 
-;// go to next waypoint node
+;// remove from game if player is far
+:plrdistfurther=1000:airemove,subvar=zombiesInGame 1,addvar=zombiesCountInCurrentWave 1,destroy
+
+
+;========================================================================
+
+;// waypoint
+;// reached point
+:state=1,waypointstate=3:state=2
+
+;// go to next point
 :state=2,waypointstate=3:waypointnext,state=1
 :state=2,waypointstate=4:waypointrandom,state=1
 
-;// reached the alive barricade
-:state=2,waypointstate=5,nearactivatable=2:waypointstop,state=4
-
-;// reached the broken barricade
-:state=2,waypointstate=5,nearactivatable=3:waypointstop,state=10
-
-;// no barricade
-:state=2,waypointstate=5:waypointstop,state=10
+;// reached the barricade
+:state=1,waypointstate=5:waypointstop,state=3
+:state=3,nearactivatable=2:state=4
+:state=3:state=10
 
 
 ;========================================================================
