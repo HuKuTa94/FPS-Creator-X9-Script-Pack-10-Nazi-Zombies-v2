@@ -14,23 +14,34 @@
 :state=0:addaiteam=1
 :state=0,varequal=animMove %animRun:aisetspeed=180
 :state=0,varequal=animMove %animWalk:aisetspeed=100
-:state=0:setaiactive=0,animate=%animMove,setanimatespeed=110,state=1
-
-;// waypoint
-:state=1,waypointstate=0:waypointstart,state=2
-:state=2,waypointstate=3:waypointnext
-:state=2,waypointstate=4:waypointrandom
-:state=2,waypointstate=5:waypointstop,alwaysactive=1,aisetspeed=50,etimerstart,state=3
+:state=0:setaiactive=0,animate=%animMove,setanimatespeed=110,waypointstart,state=1
 
 
 ;========================================================================
 
-;// no barricade, run next script 
-:state=3,etimergreater=150:state=10
-:state=3,nearactivatable=2:state=4
+;// waypoint
+;// reached waypoint node
+:state=1,waypointstate=3:state=2
+:state=1,waypointstate=5:state=2
+
+;// go to next waypoint node
+:state=2,waypointstate=3:waypointnext,state=1
+:state=2,waypointstate=4:waypointrandom,state=1
+
+;// reached the alive barricade
+:state=2,waypointstate=5,nearactivatable=2:waypointstop,state=4
+
+;// reached the broken barricade
+:state=2,waypointstate=5,nearactivatable=3:waypointstop,state=10
+
+;// no barricade
+:state=2,waypointstate=5:waypointstop,state=10
+
+
+;========================================================================
 
 ;// zombie begins to break the barricade
-:state=4,nearactivatable=2:state=5,sound=$1
+:state=4,nearactivatable=2:state=5,sound=$1,alwaysactive=1,aisetspeed=50,settarget,rotatetotarget
 
 ;// choose random animation
 :state=5,random=10:setvar=currentAnim %animAttack1,setvar=currentAnimBeyond %animAttack1Beyond,state=6
@@ -58,13 +69,13 @@
 ;// barricade has been broken
 :state=4,nearactivatable=3:state=10
 :state=7,nearactivatable=3:state=10
-:state=10:aisetspeed=100,etimerstart,state=11
 
 
 ;==============================================================================
 
 ;// entering in player's area
 ;// jump
+:state=10:aisetspeed=100,etimerstart,state=11
 :state=11:animate=%animJump,runfore=4
 :state=11,etimergreater=600:setframe=%animLanding,state=12
 :state=12:incframe=%animLanding
