@@ -16,7 +16,7 @@
 :state=0,varequal=animMove %animWalk:setvar=darkaiMovingSpeed 130,setvar=darkaiRunningSpeed 100
 
 ;// run attack logic
-:state=0:state=1
+:state=0:alwaysactive=1,animate=%animMove,state=1
 
 
 ;=========================================================================
@@ -36,25 +36,24 @@
 
 ;// path finding
 ;// move to player
-:state=1:rotatetoplr,animate=%animMove
-:state=1,varequal=animMove %animRun:runfore=5
-:state=1,varequal=animMove %animWalk:movefore=5
+:state=1,varequal=animMove %animRun:rotatetoplr,runfore=5
+:state=1,varequal=animMove %animWalk:rotatetoplr,movefore=5
 
 ;// player is far, use DarkAI
 :state=1,plrdistfurther=150:state=12
-:state=1,losetarget=8:state=12
+:state=1,losetarget=3:state=12
 :state=1,plrcannotbeseen:state=12
-:state=12:etimerstart,addaiteam=1,setaiactive=1,state=13
+:state=12:addaiteam=1,setaiactive=1,aifollowplr=1,etimerstart,state=13
 
 
 ;// DarkAI path finding
-:state=13:aifollowplr=1,animate=%animMove
+:state=13:animate=%animMove
 :state=13,movingforwards=1:aisetspeed=%darkaiMovingSpeed
 :state=13,runningforwards=1:aisetspeed=%darkaiRunningSpeed
 
 ;// remove from DarkAI system
-:state=13,etimergreater=350,plrdistwithin=200,plrcanbeseen:state=14
-:state=14:aisetspeed=100,airemove,state=1
+:state=13,etimergreater=350,plrdistwithin=150,plrcanbeseen:state=14
+:state=14:aisetspeed=100,aistop,airemove,state=1
 
 
 ;=========================================================================
@@ -80,4 +79,4 @@
 :state=23,frameatend=%currentAnim:state=24
 
 ;// reset animation speed
-:state=24:addaiteam=1,aisetspeed=100,airemove,state=1
+:state=24:addaiteam=1,aisetspeed=100,airemove,rotatetoplr,animate=%animMove,state=1
