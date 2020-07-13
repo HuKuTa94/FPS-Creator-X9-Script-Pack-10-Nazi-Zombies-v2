@@ -1,0 +1,58 @@
+; Script by HuKuTa94
+; use this script in ai/main field to play character's animations
+
+
+;=============================================================================================================================================================
+
+;// init tool
+:state=0:floorlogic
+
+;// vars declaration
+;// text
+:state=0:dimlocalvar=textSize,setvar=textSize 28,dimlocalvar=posY,setvar=posY 85
+
+;// animations
+:state=0:dimlocalvar=anim,setvar=anim 0,dimlocalvar=animMax,setvar=animMax 120
+
+
+;=============================================================================================================================================================
+
+;// debug texts
+;// info
+:state=0:hudreset,hudglobalx,hudy=%posY,addvar=posY 3,hudsize=%textSize,hudtext=animation player controls:,hudmake=display
+:state=0:hudreset,hudglobalx,hudy=%posY,addvar=posY 3,hudsize=%textSize,hudtext=Page Up - next,hudmake=display
+:state=0:hudreset,hudglobalx,hudy=%posY,addvar=posY 3,hudsize=%textSize,hudtext=Page Down - prev,hudmake=display
+
+;// current animation
+:state=0:hudreset,hudx=50,hudy=80,hudsize=35,hudtext=anim,hudmake=display
+:state=0:hudreset,hudx=52.5,hudy=81.7,hudsizex=35,hudsizey=30,hudimage=gamecore\huds\Script_Pack_10_Nazi_Zombies_v2\numeric.dds,hudtype=6,huduservar=anim,hudmake=numeric
+
+;// run main logic
+:state=0:setframe=0,state=1
+
+
+;=============================================================================================================================================================
+
+;// current animation
+;:always:animate=%anim
+
+;// current animation
+:state=1:animate=%anim,state=2
+
+
+;// switch animation
+;// key pressed
+:state=2,keypressed=201 1:state=3,addvar=anim 1,plrsound=audiobank\Script_Pack_10_Nazi_Zombies_v2\purchase_no_money.ogg
+:state=2,keypressed=209 1:state=4,subvar=anim 1,plrsound=audiobank\Script_Pack_10_Nazi_Zombies_v2\purchase_no_money.ogg
+
+;// key unpressed
+:state=3,keypressed=201 0:state=5
+:state=4,keypressed=209 0:state=5
+
+
+;// min/max animation  
+:state=5,vargreater=anim %animMax:setvar=anim 0
+:state=5,varequal=anim -1:setvar=anim %animMax
+:state=5:state=1
+
+
