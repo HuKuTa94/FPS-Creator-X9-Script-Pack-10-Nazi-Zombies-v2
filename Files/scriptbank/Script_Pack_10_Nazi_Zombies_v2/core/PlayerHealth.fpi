@@ -88,3 +88,6 @@
 :state=11,etimergreater=%regenerationTime:state=12
 :state=12,varnotequal=playerCurrentHealth %playerMaxHealth:plraddhealth=1,setvar=playerCurrentHealth $PH
 :state=12,varequal=playerCurrentHealth %playerMaxHealth:state=6
+
+;// player died
+:state=11:state=6
