@@ -48,3 +48,4 @@
 # Ignore bin and dbo files
 *.bin
 *.dbo
+*.docx
