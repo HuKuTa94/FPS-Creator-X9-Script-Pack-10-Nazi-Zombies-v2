@@ -1,0 +1,5 @@
+; Script by HuKuTa94
+; use this script in ai/main field
+
+;// add this weapon to player
+:state=0:playertake
