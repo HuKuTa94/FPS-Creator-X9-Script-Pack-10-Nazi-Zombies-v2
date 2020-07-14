@@ -1,32 +1,32 @@
 ;header
 
-desc		= invisible_wall
+desc = invisible_wall
 
 ;ai
-aiinit			= appear1.fpi
-aimain		= Script_Pack_10_Nazi_Zombies_v2\core\InvisibleWall.fpi
-aidestroy	= disappear1.fpi
+aiinit = appear1.fpi
+aimain = Script_Pack_10_Nazi_Zombies_v2\core\InvisibleWall.fpi
+aidestroy = disappear1.fpi
 
 ;spawn
-spawnmax		= 0
-spawndelay	= 0
-spawnqty		= 0
+spawnmax = 0
+spawndelay = 0
+spawnqty = 0
 
 ;orientation
 
-model	= invisible_wall.x
-offx		= 0
-offy		= 50
-offz		= 0
-rotx		= 0
-roty		= 0
-rotz		= 0
+mode = invisible_wall.x
+offx = 0
+offy = 50
+offz = 0
+rotx = 0
+roty = 0
+rotz = 0
 ;materialindex = 
-textured	= invisible_wall.dds
+textured = invisible_wall.dds
 
 ;statistics
-collisionmode	= 0
-strength 		= 0
-physics on		= 1
-scale 			= 100
-isimmobile 	= 1
+collisionmode = 0
+strength = 0
+physics on = 1
+scale = 100
+isimmobile = 1
