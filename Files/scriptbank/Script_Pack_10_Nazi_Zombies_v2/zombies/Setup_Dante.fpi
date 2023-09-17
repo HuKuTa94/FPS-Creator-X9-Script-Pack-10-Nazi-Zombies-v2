@@ -1,0 +1,56 @@
+; Script by HuKuTa94
+; use this script in ai/shoot field to initialize animations for the character
+; this script sets up animations for dante zombie
+
+; vars description and manual: you can change editable vars to setup properties and animations that are used in ai/main script
+
+; non-editable vars (dont change these vars!):
+; currentAnim				// current animation that is playing now
+; currentAnimBeyond		// current beyond animation that is playing now
+
+; editable vars:
+; animJump					// jump animation used for barricade
+; animLanding				// landing animation used for barricade
+; animWalk					// walk animation
+; animRun						// run animation
+; animAttack1				// attack1 animation
+; animAttack2				// attack2 animation
+; animAttack3				// attack3 animation
+; animAttack4				// attack4 animation
+; animAttack1Beyond		// damage frame of attack1 animation
+; animAttack2Beyond		// damage frame of attack2 animation
+; animAttack3Beyond		// damage frame of attack3 animation
+; animAttack4Beyond		// damage frame of attack4 animation
+; movementSpeed			// speed of movement
+
+
+;===========================================================================================================================
+
+
+;// var declaration
+:state=0:dimlocalvar=animAttack3Beyond,dimlocalvar=animAttack4Beyond,dimlocalvar=animAttack3,dimlocalvar=animAttack4,dimlocalvar=currentAnimBeyond,dimlocalvar=currentAnim,dimlocalvar=animJump,dimlocalvar=animLanding,dimlocalvar=animWalk,dimlocalvar=animRun,dimlocalvar=animAttack1,dimlocalvar=animAttack2,dimlocalvar=movementSpeed,dimlocalvar=animAttack1Beyond,dimlocalvar=animAttack2Beyond
+
+;======= EDITABLE VARS =========
+;// animations
+:state=0:setvar=animJump 11
+:state=0:setvar=animLanding 13
+:state=0:setvar=animWalk 2
+:state=0:setvar=animRun 5
+:state=0:setvar=animAttack1 23
+:state=0:setvar=animAttack2 24
+:state=0:setvar=animAttack3 23
+:state=0:setvar=animAttack4 24
+:state=0:setvar=animAttack1Beyond 60
+:state=0:setvar=animAttack2Beyond 60
+:state=0:setvar=animAttack3Beyond 60
+:state=0:setvar=animAttack4Beyond 60
+
+;// bot's properties
+:state=0:setvar=movementSpeed 120
+;===========================
+
+
+;===========================================================================================================================
+
+;// run spawn script
+:state=0:runfpi=Script_Pack_10_Nazi_Zombies_v2\zombies\Spawn.fpi
